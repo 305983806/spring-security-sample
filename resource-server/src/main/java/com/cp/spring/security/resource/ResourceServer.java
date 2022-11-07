@@ -12,10 +12,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 1.0    CP.Chen  2022/5/25 16:30   Create
  */
 @SpringBootApplication
-public class Server {
+public class ResourceServer {
 
     public static void main(String[] args) {
-        SpringApplication.run(Server.class);
+        SpringApplication.run(ResourceServer.class);
     }
 
 }

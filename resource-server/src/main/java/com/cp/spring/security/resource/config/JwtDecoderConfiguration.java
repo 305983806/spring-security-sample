@@ -80,17 +80,7 @@ public class JwtDecoderConfiguration {
      */
     @Bean
     public JwtDecoder jwtDecoder(@Qualifier("delegatingTokenValidator") DelegatingOAuth2TokenValidator<Jwt> validator) throws IOException, CertificateException, JOSEException {
-        CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
-        // 读取cer公钥证书来配置解码器
-        String publicKeyLocation = this.jwtProperties.getCertInfo().getPublicKeyLocation();
-        ClassPathResource resource = new ClassPathResource(publicKeyLocation);
-        InputStream inputStream = resource.getInputStream();
-        X509Certificate certificate = (X509Certificate) certificateFactory.generateCertificate(inputStream);
-        RSAKey rsaKey = RSAKey.parse(certificate);
-        RSAPublicKey key = rsaKey.toRSAPublicKey();
-        NimbusJwtDecoder nimbusJwtDecoder = NimbusJwtDecoder.withPublicKey(key).build();
-        // 注入自定义JWT校验逻辑
-        nimbusJwtDecoder.setJwtValidator(validator);
-        return nimbusJwtDecoder;
+        NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withJwkSetUri("http://localhost:9000/oauth/jwks").build();
+        return jwtDecoder;
     }
 }
