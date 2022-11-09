@@ -80,7 +80,7 @@ public class JwtDecoderConfiguration {
      */
     @Bean
     public JwtDecoder jwtDecoder(@Qualifier("delegatingTokenValidator") DelegatingOAuth2TokenValidator<Jwt> validator) throws IOException, CertificateException, JOSEException {
-        NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withJwkSetUri("http://localhost:9000/oauth/jwks").build();
+        NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withJwkSetUri("http://localhost:9000/oauth2/jwks").build();
         return jwtDecoder;
     }
 }

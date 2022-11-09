@@ -29,8 +29,9 @@ public class OAuth2ResourceServerConfiguration {
         SimpleAuthenticationEntryPoint authenticationEntryPoint = new SimpleAuthenticationEntryPoint();
 
         SecurityFilterChain filterChain = http.authorizeRequests()
-                .mvcMatchers("/**").hasAnyAuthority("SCOPE_message.read")
-                .anyRequest().authenticated()
+//                .mvcMatchers("/**").hasAnyAuthority("SCOPE_message.read1")
+//                .anyRequest().authenticated()
+                .anyRequest().access("@roleChecker.check(authentication, request)")
                 .and()
                 .exceptionHandling(exceptionConfigurer -> exceptionConfigurer
                         .accessDeniedHandler(accessDeniedHandler)
@@ -47,6 +48,11 @@ public class OAuth2ResourceServerConfiguration {
                 )
                 .build();
         return filterChain;
+    }
+
+    @Bean
+    public JdbcRoleChecker roleChecker() {
+        return new JdbcRoleChecker();
     }
 
     /**

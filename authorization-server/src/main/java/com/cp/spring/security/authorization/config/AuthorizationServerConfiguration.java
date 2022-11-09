@@ -7,6 +7,7 @@ import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -122,8 +123,8 @@ public class AuthorizationServerConfiguration {
                 .roles("USER", "ADMIN")
                 .build();
         JdbcUserDetailsManager users = new JdbcUserDetailsManager(jdbcTemplate.getDataSource());
-        users.createUser(user);
-        users.createUser(admin);
+//        users.createUser(user);
+//        users.createUser(admin);
         return users;
     }
 
